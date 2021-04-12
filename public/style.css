@@ -5,10 +5,10 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
-  justify-items: center;
+  height: 100%;
 }
 .cardComponent{ 
-  width: 300px;
+  width: 800px;
   height: 600px;
   background-color: #fff;
   border-radius: 30px;
@@ -17,8 +17,10 @@ html, body {
   align-items: center;
   flex-direction: column;
   position: relative;
-  top: 50%;
-  transform: translateY(-50%);
+}
+
+.none{
+  display: none;
 }
 
 .loginButton{

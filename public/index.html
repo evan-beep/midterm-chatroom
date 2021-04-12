@@ -14,17 +14,17 @@
     <div class="loginButton" onclick="googleLogin()">
       Login with google
     </div>
-    <div class="loginButton" onclick="transition('loginScreen', 'emailLoginScreen')">
+    <div class="loginButton" onclick="transition('emailLoginScreen')">
       Login with email
     </div>
-    <div class="loginButton" onclick="transition('loginScreen', 'signupScreen')">
-      New? Sign up with email!
+    <div class="loginButton" onclick="transition('signupScreen')">
+      Sign up with email
     </div>
   </div>
 
   <!-- Signup Screen -->
   <div class="cardComponent" id="signupScreen" style="display: none;">
-    <div class="backButton" onclick="transition('signupScreen', 'loginScreen')"></div>
+    <div class="backButton" onclick="transition('loginScreen')"></div>
     <input type="text" placeholder="email" id="emailR" />
     <input type="text" placeholder="password" id="passR" />
     <div class="loginButton" onclick="emailRegister()">
@@ -34,7 +34,7 @@
 
   <!-- Email Login Screen -->
   <div id="emailLoginScreen" class="cardComponent" style="display: none;">
-    <div class="backButton" onclick="transition('emailLoginScreen', 'loginScreen')"></div>
+    <div class="backButton" onclick="transition('loginScreen')"></div>
     <input type="text" placeholder="email" id="emailL">
     <input type="text" placeholder="password" id="passL">
     <div class="loginButton" onclick="emailLogin()">Login</div>
@@ -42,6 +42,30 @@
 
   <!-- Menu Screen -->
   <div id="main" class="cardComponent" style="display: none;">
+    <div class="chat" id="chat">
+
+    </div>
+    <input id="msgtxt" type="text" />
+    <div class="loginButton" onclick="sendButtonClicked()">Send</div>
+    <div class="loginButton" onclick="logout()">Logout</div>
+
+  </div>
+
+  <!-- Set User Data Screen -->
+  <div id="setUserDataScreen" class="cardComponent" style="display: none;">
+    <div class="nameContainer">
+      Name:
+      <input type="text" name="" id="nameS" />
+    </div>
+
+    <div class="emailContainer">
+      Email:
+    </div>
+    <div class="profileImageContainer">
+      <input type="file" id='imageS'>
+    </div>
+
+    <div class="loginButton" onclick="userDataChangeButton()">Save and continue</div>
 
   </div>
 
@@ -53,6 +77,9 @@
   <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-analytics.js"></script>
   <script src="/__/firebase/8.3.3/firebase-auth.js"></script>
   <script src="/__/firebase/8.3.3/firebase-firestore.js"></script>
+  <script src="/__/firebase/8.3.3/firebase-messaging.js"></script>
+  <script src="/__/firebase/8.3.3/firebase-storage.js"></script>
+  <script src="/__/firebase/8.3.3/firebase-performance.js"></script>
   <script>
     // Your web app's Firebase configuration
     // For Firebase JS SDK v7.20.0 and later, measurementId is optional
