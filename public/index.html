@@ -40,8 +40,23 @@
     <div class="loginButton" onclick="emailLogin()">Login</div>
   </div>
 
-  <!-- Menu Screen -->
-  <div id="main" class="cardComponent" style="display: none;">
+  <!-- main Screen -->
+  <div id='main' class="cardComponent" style="display: none;">
+    <div class="backButton" onclick="logout()"></div>
+
+    <input type='text' id="roomName" placeholder="room name">
+    <input type='text' id="roomPassword" placeholder="room password">
+    <br>
+    <div class="loginButton" onclick="goInRoom()">Join Room</div>
+    <div class="loginButton" onclick="createRoom()">Create Room</div>
+
+  </div>
+
+  <!-- chatroom Screen -->
+  <div id="chatroom" class="cardComponent" style="display: none;">
+    <div class="backButton" onclick="transition('loginScreen')"></div>
+
+    <div id="chatroomTitle"></div>
     <div class="chat" id="chat">
 
     </div>
@@ -53,12 +68,14 @@
 
   <!-- Set User Data Screen -->
   <div id="setUserDataScreen" class="cardComponent" style="display: none;">
+    <div class="backButton" onclick="transition('loginScreen')"></div>
+
     <div class="nameContainer">
       Name:
       <input type="text" name="" id="nameS" />
     </div>
 
-    <div class="emailContainer">
+    <div id="emailContainer">
       Email:
     </div>
     <div class="profileImageContainer">
@@ -90,7 +107,7 @@
       storageBucket: "chatroom-99f4d.appspot.com",
       messagingSenderId: "377396754679",
       appId: "1:377396754679:web:622bfb95d8b72416003bf2",
-      measurementId: "G-XCN9NQ1CKG"
+      measurementId: "G-XCN9NQ1CKG",
     };
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);

@@ -43,3 +43,9 @@ html, body {
   height: 50px;
   background-color: rgb(255, 30, 30);
 }
+
+.chat{
+  width: 400px;
+  height: 60%;
+  border-width: 1px;
+}

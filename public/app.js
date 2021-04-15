@@ -4,11 +4,19 @@ document.addEventListener("DOMContentLoaded", e => {
 })
 
 var prevScreen = null;
+var db = firebase.firestore();
 
 firebase.auth().onAuthStateChanged(function (user) {
   if (user) {
-    console.log('Yes');
-    transition('main');
+    if (user.displayName !== null) {
+      transition('main');
+    }
+    if (user.displayName === null) {
+      document.getElementById('emailContainer').innerHTML = "Email: " + getUserEmail();
+      transition('setUserDataScreen');
+
+    }
+
   } else {
     console.log('wtf');
     transition('loginScreen');
@@ -102,7 +110,7 @@ function transition(id) {
 
 async function sendButtonClicked() {
   let text = document.getElementById('msgtxt').value;
-  await sendMessage('room1', text);
+  await sendMessage(roomName + '_' + roomPassword, text);
   console.log(text);
 }
 
@@ -115,7 +123,7 @@ function htmlEnc(s) {
 }
 
 function sendMessage(room, messageText) {
-  return firebase.firestore().collection(room).add({
+  return db.collection('chatrooms').doc(room).collection('messages').add({
     name: getUserName(),
     text: htmlEnc(messageText),
     timestamp: firebase.firestore.FieldValue.serverTimestamp(),
@@ -126,7 +134,7 @@ function sendMessage(room, messageText) {
 }
 
 function loadMessages(room) {
-  var roomMsg = firebase.firestore().collection(room).orderBy('timestamp', 'desc').limit(12);
+  var roomMsg = db.collection('chatrooms').doc(room).collection(messages).orderBy('timestamp', 'desc').limit(12);
 
   roomMsg.onSnapshot(function (snapshot) {
     snapshot.docChanges().forEach(function (change) {
@@ -145,4 +153,28 @@ function displayMessage(time, name, text) {
   document.getElementById('chat').appendChild(msg);
 }
 
-loadMessages('room1');
+
+var roomName;
+var roomPassword;
+
+async function goInRoom() {
+  roomName = document.getElementById('roomName').value;
+  roomPassword = document.getElementById('roomPassword').value;
+
+  let name = roomName + '_' + roomPassword;
+  db.collection('chatrooms').doc(name).get().then(
+    doc => {
+      if (doc.exists) {
+        document.getElementById('chatroomTitle').innerHTML = doc.id.split('_')[0];
+        transition('chatroom');
+        console.log("Document data:", doc.data());
+      } else {
+        alert("This room does not exist!")
+      }
+    }
+  ).catch(err => {
+    console.log(err);
+  })
+
+
+}
